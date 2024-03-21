@@ -59,13 +59,13 @@ function Notes() {
     }, [searchQuery])
     
   return (
-    <div className="md:pl-24 pl-20 p-4 h-auto min-h-screen w-auto">
+    <div className=" p-4 h-auto min-h-screen w-auto">
       <Search setsearchQuery={setsearchQuery} search={handleSearch} />
 
-      <h1 className="text-black p-2 text-6xl font-bold font-sans my-8">
+      <h1 className="text-black  text-6xl font-bold font-sans my-3">
         Notes
       </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
         {searchResults.length === 0
           ? notes?.map((note) => {
               return (

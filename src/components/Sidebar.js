@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { FaPlus } from "react-icons/fa";
-import { BiLogOut } from "react-icons/bi";
+import { MdOutlineLogout } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import notecontext from "../context/notes/Notecontext";
 import Modal from "./Modal";
@@ -30,26 +30,27 @@ export default function Sidebar() {
   };
   return (
     <>
-      <div className="fixed dark top-0 left-0 h-auto min-h-screen flex flex-col shadow-2xl">
-        <Link to='/'  className="text-xl mx-2 my-6 mb-12 font-semibold" >
-          Stickit
-        </Link>
-        <FaPlus
-          onClick={() => setshowModal(true)}
-          className="p-3 bg-black m-2 rounded-3xl mx-auto hover:bg-teal-950 hover:rounded-xl transition-all duration-300 ease-linear hover:cursor-pointer"
-          size={40}
-          color="white"
-        />
-        <button
+      
+      <div className="fixed flex flex-col  bottom-8 right-8 rounded-full gap-3">
+      <div className=" bg-emerald-900 h-14 w-14 rounded-full flex items-center justify-center hover:bg-emerald-800">
+      <button
           onClick={()=>{setlogoutModal(true);setshowModal(true)}}
-          className="absolute bottom-0 border-gray-700 border-t-2 py-3"
+          className=""
         >
-          <BiLogOut
-            className="p-2 bg-black m-2 rounded-3xl mx-4 hover:bg-teal-950 hover:rounded-xl transition-all duration-300 ease-linear hover:cursor-pointer"
-            size={40}
+          <MdOutlineLogout
+            size={35}
             color="white"
           />
-        </button>
+        </button></div>
+      <div className="  bg-emerald-900 h-14 w-14 rounded-full flex items-center justify-center  hover:bg-emerald-800">
+      <FaPlus
+          onClick={() => setshowModal(true)}
+          className=""
+          size={30}
+          color="white"
+        />
+        </div>
+      
       </div>
       <Modal isVisible={showModal}>
         {logoutModal?

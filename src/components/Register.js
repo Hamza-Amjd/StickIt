@@ -6,7 +6,7 @@ function Register() {
     const [credentials, setcredentials] = useState({name :"",email : "", password : ""})
     const handleSubmit=async(e)=>{
         e.preventDefault()
-        const response = await fetch(`http://localhost:5000/api/auth/createuser`, {
+        const response = await fetch(`https://chocolate-shrimp-shoe.cyclic.app/api/auth/createuser`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

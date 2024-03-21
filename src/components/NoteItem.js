@@ -19,14 +19,14 @@ function NoteItem(props) {
   // '#E64D66', '#4DB380', '#FF4D4D', '#99E6E6', '#6666FF'];
   // var item = colorArray[Math.floor(Math.random()*colorArray.length)];
   return (
-    <div style={{backgroundColor:'#4D80CC'}} className='m-2 max-w-[400px] w-full h-72 rounded-xl text-black p-5 relative'>
+    <div  className='m-2 max-w-[400px] w-full h-fit rounded-xl bg-emerald-600 text-white p-5 relative'>
         <div className='text-2xl font-bold'>{note.title}</div>
         <div className='font-medium'>{note.description}</div>
         <div className='absolute bottom-2 right-2'>
-        <button onClick={()=>setshowModal(true)} className=' p-2 bg-black rounded-full '>
+        <button onClick={()=>setshowModal(true)} className=' p-2 bg-emerald-700 rounded-full  hover:bg-emerald-800'>
             <MdDelete size={25} color='red'/>
         </button>
-        <button onClick={()=>{updatenote(note)}} className=' p-2 bg-black rounded-full ml-1'>
+        <button onClick={()=>{updatenote(note)}} className=' p-2 bg-emerald-700 rounded-full ml-1  hover:bg-emerald-800'>
             <MdModeEdit size={25} color='white'/>
         </button>
         </div>

@@ -19,7 +19,7 @@ function NoteItem(props) {
   // '#E64D66', '#4DB380', '#FF4D4D', '#99E6E6', '#6666FF'];
   // var item = colorArray[Math.floor(Math.random()*colorArray.length)];
   return (
-    <div  className='m-2 max-w-[400px] w-full h-fit rounded-xl bg-emerald-600 text-white p-5 relative'>
+    <div  className='max-w-[400px] w-full h-fit rounded-xl bg-emerald-600 text-white p-5 relative'>
         <div className='text-2xl font-bold'>{note.title}</div>
         <div className='font-medium'>{note.description}</div>
         <div className='absolute bottom-2 right-2'>

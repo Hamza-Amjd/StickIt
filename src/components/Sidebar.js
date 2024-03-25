@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { MdOutlineLogout } from "react-icons/md";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import notecontext from "../context/notes/Notecontext";
 import Modal from "./Modal";
 

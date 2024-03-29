@@ -7,6 +7,8 @@ function NoteItem(props) {
   const { deleteNote } = context;
   const { note, updatenote } = props;
   const [showModal, setshowModal] = useState(false);
+  var month= ["January","February","March","April","May","June","July",
+            "August","September","October","November","December"];
   // const colorArray = [
   //   'rgba(210, 229, 201, 1)', 'rgba(185, 131, 106, 1)', 'rgba(155, 219, 172, 1)',
   //   'rgba(157, 207, 172, 1)', 'rgba(187, 139, 170, 1)', 'rgba(249, 204, 221, 1)',
@@ -26,11 +28,13 @@ function NoteItem(props) {
   
   // var color = colorArray[Math.floor(Math.random()*colorArray.length)];
   return (
-    <div  className="max-w-[400px] w-full h-fit rounded-xl text-black/85 p-8 relative bg-green-300/30 shadow-xl">
+    <div  className="max-w-[400px] w-full h-fit rounded-xl text-black/85 p-8  bg-green-300/30 shadow-xl">
       <div className="text-2xl font-bold">{note.title}</div>
       <div className="font-medium">{note.description}</div>
-      <div className="absolute bottom-2 right-2">
-        <button
+      
+      <div className="flex items-end justify-between  bottom-2 ">
+      <div className="font-light ">{month[new Date(note.date).getMonth()]+" "+new Date(note.date).getDay()+", "+new Date(note.date).getFullYear()}</div>
+        <div><button
           onClick={() => setshowModal(true)}
           className=" p-2 rounded-full bg-black/75 hover:bg-black/60 "
         >
@@ -43,7 +47,7 @@ function NoteItem(props) {
           className=" p-2 rounded-full ml-1 bg-black/75 hover:bg-black/60"
         >
           <MdModeEdit size={25} color="white" />
-        </button>
+        </button></div>
       </div>
       <Modal isVisible={showModal}>
         <div className="max-w-[400px] w-full mx-auto p-5 m-3 rounded">

@@ -28,7 +28,7 @@ function NoteItem(props) {
   
   // var color = colorArray[Math.floor(Math.random()*colorArray.length)];
   return (
-    <div  className="max-w-[400px] w-full h-fit rounded-xl text-black/85 p-8  bg-green-300/30 shadow-xl">
+    <div  className=" w-full h-fit rounded-xl text-black/85 p-8  bg-green-300/30 shadow-xl">
       <div className="text-2xl font-bold">{note.title}</div>
       <div className="font-medium">{note.description}</div>
       

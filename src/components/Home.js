@@ -73,7 +73,7 @@ function Home() {
             <h4 className="text-black/85 text-3xl font-bold font-popins my-6">
               Search Results
             </h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {searchResults.map((note) => {
                 return (
                   <NoteItem
@@ -90,7 +90,7 @@ function Home() {
             <h2 className="text-black/85 text-6xl font-bold font-popins my-6">
               Notes
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {notes.map((note) => {
                 return (
                   <NoteItem
@@ -121,10 +121,11 @@ function Home() {
             </div>
             <div className="flex flex-col text-gray-900 py-2">
               <label>Description</label>
-              <input
+              <textarea
                 type="text"
                 name="edescription"
                 value={updateNote.edescription}
+                rows={4}
                 onChange={onChange}
                 className="p-1 rounded focus:outline-none"
               />

@@ -35,6 +35,9 @@ export default function AddButton() {
         
         <form className="w-full mx-auto p-5 m-3 rounded">
           <div className="flex flex-col text-gray-900 py-2">
+          <legend className="font-bold text-xl mb-3 text-center ">
+                ADD a new Note
+              </legend>
             <label>Title</label>
             <input
               type="text"

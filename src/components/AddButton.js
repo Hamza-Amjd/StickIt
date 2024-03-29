@@ -20,7 +20,7 @@ export default function AddButton() {
   return (
     <>
       
-      <div className="fixed bottom-8 right-8 rounded-full">
+      <div className="fixed bottom-8 right-8 rounded-full z-10">
       <div className="h-16 w-16 lg:h-20 lg:w-20 rounded-full flex items-center justify-center bg-green-900 hover:bg-black/95 mt-3">
       <FaPlus
           onClick={() => setshowModal(true)}

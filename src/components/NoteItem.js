@@ -33,7 +33,7 @@ function NoteItem(props) {
       <div className="font-medium">{note.description}</div>
       
       <div className="flex items-end justify-between  bottom-2 ">
-      <div className="font-light ">{month[new Date(note.date).getMonth()]+" "+new Date(note.date).getDay()+", "+new Date(note.date).getFullYear()}</div>
+      <div className="font-light ">{month[new Date(note.date).getMonth()]+" "+new Date(note.date).getDate()+", "+new Date(note.date).getFullYear()}</div>
         <div><button
           onClick={() => setshowModal(true)}
           className=" p-2 rounded-full bg-black/75 hover:bg-black/60 "
@@ -60,7 +60,7 @@ function NoteItem(props) {
                 deleteNote(note._id);
                 setshowModal(false);
               }}
-              className="border-red-800 text-red-800 p-1 border-2 rounded mx-1 hover:font-bold"
+              className="border-red-900/80 p-1 border-2 rounded mx-1 hover:text-white/80 hover:bg-red-900/80"
             >
               Delete
             </button>
@@ -68,7 +68,7 @@ function NoteItem(props) {
               onClick={() => {
                 setshowModal(false);
               }}
-              className="border-gray-900 p-1 border-2 rounded hover:font-bold "
+              className="border-gray-900/80 p-1 border-2 rounded mx-1 hover:text-white/80 hover:bg-gray-900/80"
             >
               Cancel
             </button>

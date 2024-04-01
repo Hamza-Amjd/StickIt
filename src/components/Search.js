@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import { MdOutlineLogout } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import Modal from "./Modal";
 export default function Search({ setsearchQuery, search }) {
@@ -58,25 +57,24 @@ export default function Search({ setsearchQuery, search }) {
         >
           <ul
             className="py-2 text-sm text-gray-700 dark:text-gray-200"
-            aria-labelledby="dropdownDefaultButton"
           >
             
             <li>
-              <a
+              <button
                 href="#"
                 className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
               >
                 Settings
-              </a>
+              </button>
             </li>
             
             <li>
-              <a onClick={()=>setshowModal(true)}
+              <button onClick={()=>setshowModal(true)}
                 href="#"
                 className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
               >
                 Sign out
-              </a>
+              </button>
             </li>
           </ul>
         </div>

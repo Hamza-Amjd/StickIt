@@ -58,7 +58,7 @@ export default function Search({ setsearchQuery, search }) {
                 href="#"
                 className="block w-full py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
               >
-                Sign out
+                Logout
               </button>
             </li>
           </ul>
@@ -87,7 +87,7 @@ export default function Search({ setsearchQuery, search }) {
             
           </div>
         </div>
-        :
+        
       </Modal>
     </>
   );

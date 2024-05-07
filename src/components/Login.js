@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import img from '../assets/note.png'
 import { Link, useNavigate } from 'react-router-dom';
+import Modal from './Modal';
  function Login() {
     let navigate=useNavigate();
     const [credentials, setcredentials] = useState({email : "", password : ""})
+    const [showModal, setShowModal] = useState(false);
     const handleSubmit=async(e)=>{
         e.preventDefault();
         const response = await fetch(`https://chocolate-shrimp-shoe.cyclic.app/api/auth/login`, {
@@ -18,10 +20,9 @@ import { Link, useNavigate } from 'react-router-dom';
         if (json.success) {
             localStorage.setItem('token',json.authtoken)
             navigate("/")
-
         }
         else{
-            alert('login with corrrect credientals')
+            setShowModal(true)
         }
     }
     const onChange=(e)=>{
@@ -48,9 +49,26 @@ import { Link, useNavigate } from 'react-router-dom';
                     <div className=' hover:underline-offset-2 hover:text-white/75 underline cursor-pointer text-end'>Forgot Password</div>
                 </div>
                 <button  onClick={handleSubmit} className='text-white text-center font-bold w-full bg-gradient-to-r from-green-400 to-blue-500 hover:from-blue-500 hover:to-pink-500 rounded p-1 '> Log In</button>
-                <p className='flex justify-center text-gray-400 py-2 '>Don't have an account? <Link to="/signup" className=' hover:underline-offset-2 hover:text-white/75 underline cursor-pointer'> Register</Link></p>
+                <p className='flex justify-center text-gray-400 py-2 '>Don't have an account? <Link to="/signup" className=' hover:underline-offset-2 hover:text-white/75 underline cursor-pointer pl-1'> Register</Link></p>
             </form>
         </div>
+        <Modal isVisible={showModal}>
+        <div className="max-w-[250] w-full  px-8 py-4 rounded">
+          <div className="flex flex-col text-gray-900 py-2 font-bold">
+            Invalid credentials! Please try again
+          </div>
+          <div className="flex justify-end text-red-800 font-extrabold mt-4">
+                <button
+                    onClick={() => {
+                        setShowModal(false);
+                    }}
+                    >
+                    OK
+                </button>
+          </div>
+          
+          </div>
+        </Modal>
     </div>
   )
 }

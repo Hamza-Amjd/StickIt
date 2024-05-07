@@ -66,8 +66,8 @@ function Home() {
   return (
     <>
       <AddButton />
-      <div className=" p-4 h-auto min-h-screen w-auto">
         <Search setsearchQuery={setsearchQuery} search={handleSearch} />
+      <div className=" p-4 py-12 h-auto min-h-screen w-auto">
         {searchQuery.length > 0 ? (
           <>
             <h4 className="text-black/85 text-3xl font-bold font-popins my-6">
@@ -105,9 +105,17 @@ function Home() {
         )}
 
         <Modal isVisible={showModal}>
-          <form className=" w-full mx-auto p-5 m-3 rounded text-black/80">
+          <form className=" w-full p-4 text-black/80">
+          <div className="flex justify-end">
+            <button
+                onClick={() => setshowModal(false)}
+                className="text-xl active:text-lg"
+              >
+                &#10060;
+              </button>
+          </div>
             <div className="flex flex-col text-gray-900 py-2">
-              <legend className="font-bold text-xl mb-3 text-center ">
+              <legend className="font-bold text-2xl text-black/85 mb-3 text-center ">
                 Edit Note
               </legend>
               <label>Title</label>
@@ -140,20 +148,14 @@ function Home() {
                 className="p-1 rounded focus:outline-none"
               />
             </div>
-            <div className="flex justify-between ">
+           
               <button
                 onClick={handleclick}
-                className=" text-center font-bold  rounded p-1 "
+                className="w-full rounded-md bg-blue-700 my-4 font-bold text-lg hover:bg-blue-500 p-2 text-white"
               >
                 Edit
               </button>
-              <button
-                onClick={() => setshowModal(false)}
-                className=" text-center font-bold  rounded p-1 "
-              >
-                Cancel
-              </button>
-            </div>
+            
           </form>
         </Modal>
       </div>

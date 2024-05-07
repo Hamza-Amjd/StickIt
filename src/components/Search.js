@@ -13,7 +13,7 @@ export default function Search({ setsearchQuery, search }) {
   };
   return (
     <>
-    <div className="flex  items-center  w-full table-fixed">
+    <div className="flex  items-center  w-full fixed bg-white p-2">
       <div className="flex bg-gray-100 p-3 w-full items-center justify-center  rounded-3xl text-gray-700">
         <button className="mr-2" onClick={() => search()}>
           <FaSearch size={20} />
@@ -25,29 +25,14 @@ export default function Search({ setsearchQuery, search }) {
           className="w-full bg-gray-100 focus:outline-none"
         />
       </div>
-      <div className="">
+      <div className="px-2">
         <button
           id="dropdownDefaultButton"
           onClick={()=>setdropdown(!dropdown)}
-          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 "
+          className="flex items-center "
           type="button"
         >
-          Profile{" "}
-          <svg
-            className="w-2.5 h-2.5 ms-3"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 10 6"
-          >
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="m1 1 4 4 4-4"
-            />
-          </svg>
+         <img src={require('../assets/emptyPfp.png')} alt="avatar" className="h-12 rounded-full" />
         </button>
         </div>
       
@@ -62,7 +47,7 @@ export default function Search({ setsearchQuery, search }) {
             <li>
               <button
                 href="#"
-                className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                className="block w-full py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
               >
                 Settings
               </button>
@@ -71,7 +56,7 @@ export default function Search({ setsearchQuery, search }) {
             <li>
               <button onClick={()=>setshowModal(true)}
                 href="#"
-                className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                className="block w-full py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
               >
                 Sign out
               </button>
@@ -80,25 +65,26 @@ export default function Search({ setsearchQuery, search }) {
         </div>
         </div>
       <Modal isVisible={showModal}>
-        <div className="w-full  mx-auto p-5 m-3 rounded">
-          <div className="flex flex-col text-gray-900 py-2">
+        <div className="w-full  mx-auto px-5 py-2">
+          <div className="flex flex-col text-gray-900 py-4">
             Are you sure you want to Logout?
           </div>
-          <div className="flex justify-end text-gray-900 py-2">
-            <button
-              onClick={handleLogout}
-              className="border-gray-900/80 p-1 border-2 rounded mx-1 hover:text-white/80 hover:bg-gray-900/80"
-            >
-              Logout
-            </button>
+          <div className="flex justify-end text-gray-900 pt-4 gap-3">
             <button
               onClick={() => {
                 setshowModal(false);
               }}
-              className="border-gray-900/80 p-1 border-2 rounded mx-1 hover:text-white/80 hover:bg-gray-900/80"
+              className=" mx-1 hover:font-semibold"
             >
               Cancel
             </button>
+            <button
+              onClick={handleLogout}
+              className="mx-1 text-red-800 hover:font-semibold"
+            >
+              Logout
+            </button>
+            
           </div>
         </div>
         :

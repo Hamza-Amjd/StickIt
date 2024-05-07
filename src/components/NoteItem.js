@@ -57,20 +57,20 @@ function NoteItem(props) {
           <div className="flex justify-end text-gray-900 py-2">
             <button
               onClick={() => {
-                deleteNote(note._id);
                 setshowModal(false);
               }}
-              className="border-red-900/80 p-1 border-2 rounded mx-1 hover:text-white/80 hover:bg-red-900/80"
+              className="p-1 mx-1 hover:font-semibold"
             >
-              Delete
+              Cancel
             </button>
             <button
               onClick={() => {
+                deleteNote(note._id);
                 setshowModal(false);
               }}
-              className="border-gray-900/80 p-1 border-2 rounded mx-1 hover:text-white/80 hover:bg-gray-900/80"
+              className="p-1 mx-1 text-red-800 hover:font-semibold"
             >
-              Cancel
+              Delete
             </button>
           </div>
         </div>

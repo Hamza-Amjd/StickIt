@@ -1,12 +1,17 @@
 import React, { useState } from 'react'
 import img from '../assets/note.png'
 import { Link, useNavigate } from 'react-router-dom';
+import Modal from './Modal';
 function Register() {
     let navigate=useNavigate();
     const [credentials, setcredentials] = useState({name :"",email : "", password : ""})
+    const [showModal, setShowModal] = useState(false);
+    const [error, seterror] = useState(false);
+    
     const handleSubmit=async(e)=>{
         e.preventDefault()
-        const response = await fetch(`https://chocolate-shrimp-shoe.cyclic.app/api/auth/createuser`, {
+        
+             const response = await fetch(`https://chocolate-shrimp-shoe.cyclic.app/api/auth/createuser`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -19,10 +24,15 @@ function Register() {
             localStorage.setItem('token',json.authtoken)
             navigate("/")
 
+        }else{
+            setShowModal(true)
+            if(json.error){
+                 seterror(json.error)
+            }else if(json.errors){
+                seterror(json.errors[0].msg)
+            }
         }
-        else{
-            alert('login with corrrect credientals')
-        }
+       
     }
     const onChange=(e)=>{
         setcredentials({...credentials,[e.target.name]:e.target.value})
@@ -46,10 +56,27 @@ function Register() {
                 <input type='password' name='password' onChange={onChange} className='bg-cyan-700 p-1 rounded focus:border-blue-500 focus:bg-cyan-800 focus:outline-none'/>
             </div>
             
-            <button type='submit' onClick={handleSubmit} className='text-white text-center font-bold w-full bg-gradient-to-r from-green-400 to-blue-500 hover:from-blue-500 hover:to-pink-500 rounded p-1 my-2'>Sign Up</button>
-            <p className='flex justify-center text-gray-400 py-2 '>Already have an account? <Link to="/login">Log In</Link></p>
+            <button type='submit' onClick={handleSubmit} className='text-white text-center font-bold w-full bg-gradient-to-r from-green-400 to-blue-500 hover:from-blue-500 hover:to-pink-500 rounded p-1 my-5'>Sign Up</button>
+            <p className='flex justify-center text-gray-400 py-2 '>Already have an account? <Link to="/login" className=' hover:underline-offset-2 hover:text-white/75 underline cursor-pointer pl-1'>Log In</Link></p>
         </form>
     </div>
+    <Modal isVisible={showModal}>
+        <div className="max-w-[250] w-full  px-8 py-4 rounded">
+          <div className="flex flex-col text-gray-900 py-2 font-bold">
+            {error}
+          </div>
+          <div className="flex justify-end text-red-800 font-extrabold mt-4">
+                <button
+                    onClick={() => {
+                        setShowModal(false);
+                    }}
+                    >
+                    OK
+                </button>
+          </div>
+          
+          </div>
+        </Modal>
 </div>
   )
 }

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
+import { IoLogOut } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import Modal from "./Modal";
 export default function Search({ setsearchQuery, search }) {
@@ -65,28 +66,34 @@ export default function Search({ setsearchQuery, search }) {
         </div>
         </div>
       <Modal isVisible={showModal}>
-        <div className="w-full  mx-auto px-5 py-2">
-          <div className="flex flex-col text-gray-900 py-4">
-            Are you sure you want to Logout?
+      <div className="w-[250px]  justify-center items-center p-6 rounded">
+          
+          <div className="flex justify-center text-gray-800/70">
+            <IoLogOut size={50} className=""/>
           </div>
-          <div className="flex justify-end text-gray-900 pt-4 gap-3">
-            <button
-              onClick={() => {
-                setshowModal(false);
-              }}
-              className=" mx-1 hover:font-semibold"
-            >
-              Cancel
-            </button>
-            <button
-              onClick={handleLogout}
-              className="mx-1 text-red-800 hover:font-semibold"
-            >
-              Logout
-            </button>
-            
+            <div className="text-center font-black text-lg">
+              Confirm Logout
+            </div>
+            <div className="text-center text-sm text-gray-500 py-2 pb-2">
+              Are you sure you want to Logout?
+            </div>
+            <div className="flex text-gray-900 gap-2 py-2">
+              <button
+                onClick={handleLogout}
+                className="w-[50%] text-white bg-gray-800/70 hover:bg-gray-500/70 p-1 rounded-md"
+              >
+                Logout
+              </button>
+              <button
+                onClick={() =>setshowModal(false)}
+                className="w-[50%] hover:bg-gray-600/30 p-1 rounded-md"
+              >
+                Cancel
+              </button>
+              
+            </div>
           </div>
-        </div>
+        
         
       </Modal>
     </>

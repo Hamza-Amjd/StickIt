@@ -21,7 +21,7 @@ export default function AddButton() {
     <>
       
       <div className="fixed bottom-8 right-8 rounded-full z-10">
-      <div className="h-16 w-16 lg:h-20 lg:w-20 rounded-full flex items-center justify-center bg-green-900 hover:bg-black/95 mt-3">
+      <div className="h-14 w-14 lg:h-20 lg:w-20 rounded-full flex items-center justify-center bg-green-900 hover:bg-black/95 mt-3">
       <FaPlus
           onClick={() => setshowModal(true)}
           className=""
@@ -32,17 +32,17 @@ export default function AddButton() {
       
       </div>
       <Modal isVisible={showModal}>
-        <form className="w-full p-4 text-black/80">
-          <div className="flex justify-end">
+        <form className="w-[400px] p-4 text-black/80 px-8 pb-8">
+          <div className="flex justify-end ">
             <button
                 onClick={() => setshowModal(false)}
-                className="text-xl active:text-lg"
+                className="text-xl active:text-lg p-1 rounded-full hover:bg-gray-600/10"
               >
                 &#10060;
               </button>
           </div>
              
-          <div className="flex flex-col text-gray-900 py-2">
+          <div className="flex flex-col text-gray-900">
           <legend className="font-bold  text-2xl text-black/85 mb-3 text-center ">
                 Add a new note
               </legend>

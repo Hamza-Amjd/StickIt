@@ -105,16 +105,16 @@ function Home() {
         )}
 
         <Modal isVisible={showModal}>
-          <form className=" w-full p-4 text-black/80">
+          <form className=" w-[400px] p-4 text-black/80  px-8 pb-8">
           <div className="flex justify-end">
             <button
                 onClick={() => setshowModal(false)}
-                className="text-xl active:text-lg"
+                className="text-xl active:text-lg p-1 rounded-full hover:bg-gray-600/10"
               >
                 &#10060;
               </button>
           </div>
-            <div className="flex flex-col text-gray-900 py-2">
+            <div className="flex flex-col text-gray-900">
               <legend className="font-bold text-2xl text-black/85 mb-3 text-center ">
                 Edit Note
               </legend>

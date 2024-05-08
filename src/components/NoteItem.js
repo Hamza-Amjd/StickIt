@@ -50,28 +50,36 @@ function NoteItem(props) {
         </button></div>
       </div>
       <Modal isVisible={showModal}>
-        <div className="max-w-[400px] w-full mx-auto p-5 m-3 rounded">
-          <div className="flex flex-col text-gray-900 py-2">
+        <div className="w-[250px] mx-auto p-6 rounded">
+          
+        <div className="flex justify-center text-red-800/80">
+          <MdDelete size={50} className=""/>
+        </div>
+          <div className="text-center font-black text-lg">
+            Confirm Delete
+          </div>
+          <div className="text-center text-sm text-gray-500 py-2 pb-2">
             Are you sure you want to Delete?
           </div>
-          <div className="flex justify-end text-gray-900 py-2">
-            <button
-              onClick={() => {
-                setshowModal(false);
-              }}
-              className="p-1 mx-1 hover:font-semibold"
-            >
-              Cancel
-            </button>
+          <div className="flex text-gray-900 gap-2 py-2">
             <button
               onClick={() => {
                 deleteNote(note._id);
                 setshowModal(false);
               }}
-              className="p-1 mx-1 text-red-800 hover:font-semibold"
+              className="w-[50%] text-white bg-red-800/80 hover:bg-red-500/80 p-1 rounded-md"
             >
               Delete
             </button>
+            <button
+              onClick={() => {
+                setshowModal(false);
+              }}
+              className="w-[50%] hover:bg-gray-600/30 p-1 rounded-md"
+            >
+              Cancel
+            </button>
+            
           </div>
         </div>
       </Modal>

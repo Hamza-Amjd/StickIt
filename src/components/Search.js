@@ -23,7 +23,7 @@ export default function Search({ setsearchQuery, search }) {
           type="search"
           placeholder="Search"
           onChange={(e) => setsearchQuery(e.target.value)}
-          className="w-full bg-gray-100 focus:outline-none"
+          className="w-full bg-gray-100 focus:outline-none outline-none "
         />
       </div>
       <div className="px-2">

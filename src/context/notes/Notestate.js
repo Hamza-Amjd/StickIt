@@ -2,7 +2,7 @@ import { useState } from "react";
 import Notecontext from "./Notecontext";
 
 const NoteState = (props) => {
-  const host = "https://chocolate-shrimp-shoe.cyclic.app";
+  const host = "https://stickit-backend.vercel.app";
   const [notes, setNotes] = useState([]);
 
   const getNotes=async () => {

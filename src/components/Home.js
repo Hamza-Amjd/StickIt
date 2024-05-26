@@ -10,6 +10,7 @@ function Home() {
   const context = useContext(notecontext);
   const { notes, getNotes, editNote, setNotes } = context;
   const [showModal, setshowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [searchQuery, setsearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState("");
 
@@ -24,8 +25,10 @@ function Home() {
     if (!token) {
       navigate("/login");
     } else {
+      setLoading(true)
       getNotes();
       setNotes(notes);
+      setLoading(false)
     }
     // eslint-disable-next-line
   }, []);
@@ -65,7 +68,7 @@ function Home() {
 
   return (
     <>
-      <AddButton />
+      <AddButton noteslength={notes.length}/>
         <Search setsearchQuery={setsearchQuery} search={handleSearch} />
       <div className=" p-4 py-12 h-auto min-h-screen w-auto">
         {searchQuery.length > 0 ? (
@@ -90,8 +93,18 @@ function Home() {
             <h2 className="text-black/85 text-6xl font-bold font-popins my-6">
               Notes
             </h2>
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {notes.map((note) => {
+                          {loading && <div role="status" class="max-w-sm animate-pulse">
+    <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
+    <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
+    <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+    <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5"></div>
+    <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5"></div>
+    <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]"></div>
+    <span class="sr-only">Loading...</span>
+</div>}
+          {notes.map((note) => {
                 return (
                   <NoteItem
                     key={note._id}

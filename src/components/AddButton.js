@@ -3,7 +3,7 @@ import { FaPlus } from "react-icons/fa";
 import notecontext from "../context/notes/Notecontext";
 import Modal from "./Modal";
 
-export default function AddButton() {
+export default function AddButton({noteslength}) {
   const [showModal, setshowModal] = useState(false);
   const context = useContext(notecontext);
   const { addNote } = context;
@@ -20,16 +20,21 @@ export default function AddButton() {
   return (
     <>
       
-      <div className="fixed bottom-8 right-8 rounded-full z-10">
-      <div className="h-14 w-14 lg:h-20 lg:w-20 rounded-full flex items-center justify-center bg-green-900 hover:bg-black/95 mt-3">
-      <FaPlus
-          onClick={() => setshowModal(true)}
+      <div className="fixed bottom-8 right-8 rounded-full z-10 flex-row">
+      
+    <button  onClick={() => setshowModal(true)}  type="button" className=" h-14 w-14 lg:h-20 lg:w-20 rounded-full flex items-center justify-center bg-green-900 hover:bg-black/95 mt-3">
+      {noteslength===0 && <div class="absolute right-16 top-0 z-10 w-80  inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm  dark:bg-gray-700">
+    Tap this button to add your first Note
+    </div>}
+    <FaPlus
+          
           className=""
           size={30}
           color="white"
         />
-        </div>
-      
+        </button>
+        
+
       </div>
       <Modal isVisible={showModal}>
         <form className="w-[400px] p-4 text-black/80 px-8 pb-8">

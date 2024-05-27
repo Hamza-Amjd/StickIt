@@ -122,6 +122,7 @@ function Login() {
             <button
               onClick={handleLogIN}
               className="text-white text-center font-bold w-full bg-gradient-to-r from-green-400 to-blue-500 hover:from-blue-500 hover:to-pink-500 rounded p-1 "
+              type="submit"
             >
               {" "}
               Log In
@@ -129,8 +130,9 @@ function Login() {
             <p className="flex justify-center text-gray-400 py-2 ">
               Don't have an account?{" "}
               <button
-                onClick={() => setIsLogin(false)}
+                onClick={(e) => {e.preventDefault();setIsLogin(false)}}
                 className=" hover:underline-offset-2 hover:text-white/75 underline cursor-pointer pl-1"
+                type="button"
               >
                 {" "}
                 Register

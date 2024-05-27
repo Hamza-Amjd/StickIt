@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { MdModeEdit, MdDelete } from "react-icons/md";
+import { motion } from "framer-motion";
 import notecontext from "../context/notes/Notecontext";
 import Modal from "./Modal";
 function NoteItem(props) {
@@ -7,8 +8,20 @@ function NoteItem(props) {
   const { deleteNote } = context;
   const { note, updatenote } = props;
   const [showModal, setshowModal] = useState(false);
-  var month= ["January","February","March","April","May","June","July",
-            "August","September","October","November","December"];
+  var month = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
   // const colorArray = [
   //   'rgba(210, 229, 201, 1)', 'rgba(185, 131, 106, 1)', 'rgba(155, 219, 172, 1)',
   //   'rgba(157, 207, 172, 1)', 'rgba(187, 139, 170, 1)', 'rgba(249, 204, 221, 1)',
@@ -25,39 +38,54 @@ function NoteItem(props) {
   //   'rgba(255, 235, 205, 1)', 'rgba(255, 239, 213, 1)', 'rgba(255, 245, 238, 1)',
   //   'rgba(245, 255, 250, 1)'
   // ]
-  
+
   // var color = colorArray[Math.floor(Math.random()*colorArray.length)];
+
   return (
-    <div  className=" w-full h-fit rounded-xl text-black/85 p-8  bg-green-300/30 shadow-xl">
+    <motion.div
+      initial={{ scale: 0, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      className=" w-full h-fit rounded-xl text-black/85 p-8 bg-green-300/30 shadow-xl"
+    >
       <div className="text-2xl font-bold">{note.title}</div>
       <div className="font-medium">{note.description}</div>
-      
+
       <div className="flex items-end justify-between  bottom-2 ">
-      <div className="font-light ">{month[new Date(note.date).getMonth()]+" "+new Date(note.date).getDate()+", "+new Date(note.date).getFullYear()}</div>
-        <div><button
-          onClick={() => setshowModal(true)}
-          className=" p-2 rounded-full bg-black/75 hover:bg-black/60 "
-        >
-          <MdDelete size={25} color="white" />
-        </button>
-        <button
-          onClick={() => {
-            updatenote(note);
-          }}
-          className=" p-2 rounded-full ml-1 bg-black/75 hover:bg-black/60"
-        >
-          <MdModeEdit size={25} color="white" />
-        </button></div>
+        <div className="font-light ">
+          {month[new Date(note.date).getMonth()] +
+            " " +
+            new Date(note.date).getDate() +
+            ", " +
+            new Date(note.date).getFullYear()}
+        </div>
+        <div>
+          <motion.button whileTap={{scale:0.9}}
+            onClick={() => setshowModal(true)}
+            className=" rounded-full bg-black/75 "
+          >
+            <motion.div className="text-white p-2 hover:text-red-500"  whileHover={{ y: -5 }} whileTap={{y:0}}>
+              <MdDelete size={25} />
+            </motion.div>
+          </motion.button>
+          <motion.button whileTap={{scale:0.9}}
+            onClick={() => {
+              updatenote(note);
+            }}
+            className="rounded-full ml-1 bg-black/75"
+          >
+             <motion.div className="text-white p-2 hover:text-green-700" whileHover={{ y: -5 }} whileTap={{y:0}}>
+
+              <MdModeEdit size={25}/>
+             </motion.div>
+          </motion.button>
+        </div>
       </div>
       <Modal isVisible={showModal}>
         <div className="w-[250px] mx-auto p-6 rounded">
-          
-        <div className="flex justify-center text-red-800/80">
-          <MdDelete size={50} className=""/>
-        </div>
-          <div className="text-center font-black text-lg">
-            Confirm Delete
+          <div className="flex justify-center text-red-800/80">
+            <MdDelete size={50} className="" />
           </div>
+          <div className="text-center font-black text-lg">Confirm Delete</div>
           <div className="text-center text-sm text-gray-500 py-2 pb-2">
             Are you sure you want to Delete?
           </div>
@@ -79,11 +107,10 @@ function NoteItem(props) {
             >
               Cancel
             </button>
-            
           </div>
         </div>
       </Modal>
-    </div>
+    </motion.div>
   );
 }
 

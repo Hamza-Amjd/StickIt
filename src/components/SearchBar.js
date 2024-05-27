@@ -3,7 +3,8 @@ import { FaSearch } from "react-icons/fa";
 import { IoLogOut } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import Modal from "./Modal";
-export default function Search({ setsearchQuery, search }) {
+import {motion} from 'framer-motion' 
+export default function SearchBar({ setsearchQuery, search }) {
   const [showModal, setshowModal] = useState(false);
   const [dropdown, setdropdown] = useState(false);
   let navigate = useNavigate();
@@ -26,18 +27,19 @@ export default function Search({ setsearchQuery, search }) {
           className="w-full bg-gray-100 focus:outline-none outline-none "
         />
       </div>
-      <div className="px-2">
+      <motion.div whileTap={{scale:0.9}} whileHover={{scale:1.1}} className="mx-1 ">
         <button
           id="dropdownDefaultButton"
           onClick={()=>setdropdown(!dropdown)}
           className="flex items-center "
           type="button"
         >
-         <img src={require('../assets/emptyPfp.png')} alt="avatar" className="h-12 rounded-full" />
+         <img src={require('../assets/emptyPfp.jpg')} alt="avatar" className="h-12 w-12 rounded-full" />
         </button>
-        </div>
+        </motion.div>
       
-        <div
+        <motion.div
+        
           id="dropdown"
           className={`z-10 ${dropdown?" ":"hidden"} absolute right-3 top-16 bg-white divide-y transition-all ease-in divide-gray-100 rounded-lg shadow w-28 dark:bg-gray-700`}
         >
@@ -63,7 +65,7 @@ export default function Search({ setsearchQuery, search }) {
               </button>
             </li>
           </ul>
-        </div>
+        </motion.div>
         </div>
       <Modal isVisible={showModal}>
       <div className="w-[250px]  justify-center items-center p-6 rounded">

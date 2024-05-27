@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import notecontext from "../context/notes/Notecontext";
 import Modal from "./Modal";
+import {motion} from 'framer-motion' 
 
 export default function AddButton({noteslength}) {
   const [showModal, setshowModal] = useState(false);
@@ -20,9 +21,15 @@ export default function AddButton({noteslength}) {
   return (
     <>
       
-      <div className="fixed bottom-8 right-8 rounded-full z-10 flex-row">
+      <div className="fixed bottom-8 right-8 z-10">
       
-    <button  onClick={() => setshowModal(true)}  type="button" className=" h-14 w-14 lg:h-20 lg:w-20 rounded-full flex items-center justify-center bg-green-900 hover:bg-black/95 mt-3">
+    <motion.div whileHover={{ scale: 1.2, rotate: 90 }}
+  whileTap={{
+    scale: 0.8,
+    rotate: -90,
+    borderRadius: "100%"
+  }}
+ onClick={() => setshowModal(true)} className=" h-14 w-14 lg:h-20 lg:w-20 rounded-full flex items-center justify-center bg-green-900 hover:bg-black/95 mt-3">
       {noteslength===0 && <div class="absolute right-16 top-0 z-10 w-80  inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm  dark:bg-gray-700">
     Tap this button to add your first Note
     </div>}
@@ -32,16 +39,16 @@ export default function AddButton({noteslength}) {
           size={30}
           color="white"
         />
-        </button>
+        </motion.div>
         
 
       </div>
       <Modal isVisible={showModal}>
-        <form className="w-[400px] p-4 text-black/80 px-8 pb-8">
+        <form className="w-[350px] sm:w-[400px] text-black/80 p-4">
           <div className="flex justify-end ">
             <button
                 onClick={() => setshowModal(false)}
-                className="text-xl active:text-lg p-1 rounded-full hover:bg-gray-600/10"
+                className="text-lg active:text-md p-1 rounded-full hover:bg-gray-600/10"
               >
                 &#10060;
               </button>
@@ -66,7 +73,7 @@ export default function AddButton({noteslength}) {
               type="text"
               name="description"
               value={note.description}
-              rows={4}
+              rows={3}
               onChange={onChange}
               className="p-1 rounded focus:outline-none"
             />

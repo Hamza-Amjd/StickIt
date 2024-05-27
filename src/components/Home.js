@@ -2,9 +2,9 @@ import React, { useContext, useEffect, useState } from "react";
 import NoteItem from "./NoteItem";
 import notecontext from "../context/notes/Notecontext";
 import Modal from "./Modal";
-import Search from "./Search";
 import AddButton from "./AddButton";
 import { useNavigate } from "react-router-dom";
+import SearchBar from "./SearchBar";
 function Home() {
   let navigate = useNavigate();
   const context = useContext(notecontext);
@@ -69,7 +69,7 @@ function Home() {
   return (
     <>
       <AddButton noteslength={notes.length}/>
-        <Search setsearchQuery={setsearchQuery} search={handleSearch} />
+        <SearchBar setsearchQuery={setsearchQuery} search={handleSearch} />
       <div className=" p-4 py-12 h-auto min-h-screen w-auto">
         {searchQuery.length > 0 ? (
           <>
@@ -118,7 +118,7 @@ function Home() {
         )}
 
         <Modal isVisible={showModal}>
-          <form className=" w-[400px] p-4 text-black/80  px-8 pb-8">
+          <form className="w-[350px] sm:w-[400px] p-4 text-black/80">
           <div className="flex justify-end">
             <button
                 onClick={() => setshowModal(false)}
@@ -146,7 +146,7 @@ function Home() {
                 type="text"
                 name="edescription"
                 value={updateNote.edescription}
-                rows={4}
+                rows={3}
                 onChange={onChange}
                 className="p-1 rounded focus:outline-none"
               />

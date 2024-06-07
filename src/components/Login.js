@@ -1,13 +1,19 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Modal from "./Modal";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import Spinner from "./Spinner";
+import { motion } from "framer-motion";
+
 function Login() {
   let navigate = useNavigate();
   const [credentials, setcredentials] = useState({ email: "", password: "" });
+  const [obsecurepass, setObsecurepass] = useState(true);
   const [registerCredentials, setRegisterCredentials] = useState({
     name: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
   const [showModal, setShowModal] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
@@ -83,15 +89,18 @@ function Login() {
       [e.target.name]: e.target.value,
     });
   };
+  const logindisabled=credentials.email.length<3 || credentials.password.length<8 
+  const registerdisabled=registerCredentials.name.length<3 || registerCredentials.email.length===0 || registerCredentials.password.length<8 || registerCredentials.confirmPassword !== registerCredentials.password;
+
   return (
-    <div className="transition-all ease-linear duration-200">
-      <div className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 flex flex-col justify-center items-center transition-all ease-in h-screen">
+    <>
+      <div  className="  bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 flex flex-col justify-center items-center transition-all ease-in h-screen">
         {isLogin ? (
-          <form className="flex flex-col items-center justify-center max-w-[400px] w-full mx-auto bg-cyan-900 p-5 m-3 border-2 rounded-xl border-sky-200 shadow-[0_0_2px_#fff,inset_0_0_2px_#fff,0_0_5px_#08f,0_0_15px_#08f,0_0_30px_#08f] ">
+          <motion.form initial={{scale:0.5}} animate={{scale:1}} transition={{type:'spring'}}  className="flex flex-col  justify-center w-[350px] sm:w-[400px]  mx-auto bg-cyan-900 p-5 m-3 border-2 rounded-xl border-sky-200 shadow-[0_0_2px_#fff,inset_0_0_2px_#fff,0_0_5px_#08f,0_0_15px_#08f,0_0_30px_#08f] ">
             <img
               src={require("../assets/notelogo.png")}
               alt=""
-              className="h-16 w-16 mb-8"
+              className="h-16 w-16 mb-8 self-center"
             />
             <legend className="text-2xl text-white text-center font-bold mb-6">
               Log In to your account
@@ -105,23 +114,41 @@ function Login() {
                 className="bg-cyan-700 p-1 rounded focus:border-blue-500 focus:bg-cyan-500 focus:outline-none text-white"
               />
             </div>
-            <div className="flex flex-col text-gray-400 py-2 w-full">
+            <div className="flex flex-col text-gray-400 py-2 w-full ">
               <label>Password</label>
-              <input
-                type="password"
-                name="password"
-                onChange={onChange}
-                className="bg-cyan-700 p-1 rounded focus:border-blue-500 focus:bg-cyan-800 focus:outline-none  text-white"
-              />
-            </div>
-            <div className="flex justify-end text-gray-400 py-2">
-              <div className=" hover:underline-offset-2 hover:text-white/75 underline cursor-pointer text-end">
-                Forgot Password
+              <div className="flex  relative">
+                <input
+                  type={`${obsecurepass ? "password" : "text"}`}
+                  name="password"
+                  security="none"
+                  onChange={onChange}
+                  className="bg-cyan-700 p-1 rounded w-full focus:border-blue-500 focus:bg-cyan-500 focus:outline-none  text-white"
+                />
+                <button
+                  type="button"
+                  className="absolute right-2 top-[6px] text-white"
+                  onClick={() => setObsecurepass(!obsecurepass)}
+                >
+                  {obsecurepass ? (
+                    <FaRegEye size={20} />
+                  ) : (
+                    <FaRegEyeSlash size={20} />
+                  )}
+                </button>
               </div>
+            </div>
+            <div className="self-end text-gray-400 py-2">
+              <Link
+                to={"/fogetpassword"}
+                className=" hover:underline-offset-2 hover:text-white/75 underline cursor-pointer text-end"
+              >
+                Forgot Password
+              </Link>
             </div>
             <button
               onClick={handleLogIN}
-              className="text-white text-center font-bold w-full bg-gradient-to-r from-green-400 to-blue-500 hover:from-blue-500 hover:to-pink-500 rounded p-1 "
+              disabled={logindisabled}
+              className={`text-white bg-gradient-to-r drop-shadow-2xl text-center font-bold w-full ${logindisabled ?" from-slate-400 to-teal-950" :"bg-gradient-to-r from-green-400 to-blue-500 hover:from-blue-500 hover:to-pink-500 "}  rounded-2xl p-1 my-5 `}
               type="submit"
             >
               {" "}
@@ -130,7 +157,10 @@ function Login() {
             <p className="flex justify-center text-gray-400 py-2 ">
               Don't have an account?{" "}
               <button
-                onClick={(e) => {e.preventDefault();setIsLogin(false)}}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsLogin(false);
+                }}
                 className=" hover:underline-offset-2 hover:text-white/75 underline cursor-pointer pl-1"
                 type="button"
               >
@@ -138,9 +168,9 @@ function Login() {
                 Register
               </button>
             </p>
-          </form>
+          </motion.form>
         ) : (
-          <form className="flex flex-col items-center justify-center max-w-[400px] w-full mx-auto bg-cyan-900 p-5 m-3 border-2 rounded-xl border-sky-200 shadow-[0_0_2px_#fff,inset_0_0_2px_#fff,0_0_5px_#08f,0_0_15px_#08f,0_0_30px_#08f]  ">
+          <motion.form initial={{scale:0.8}} animate={{scale:1}} transition={{type:'spring'}}  className="flex flex-col items-center justify-center w-[350px] sm:w-[450px]  mx-auto bg-cyan-900 p-5 m-3 border-2 rounded-xl border-sky-200 shadow-[0_0_2px_#fff,inset_0_0_2px_#fff,0_0_5px_#08f,0_0_15px_#08f,0_0_30px_#08f]  ">
             <img
               src={require("../assets/notelogo.png")}
               alt=""
@@ -167,20 +197,56 @@ function Login() {
                 className="bg-cyan-700 p-1 rounded focus:border-blue-500 focus:bg-cyan-500 focus:outline-none text-white"
               />
             </div>
-            <div className="flex flex-col text-gray-400 py-2 w-full">
+            <div className="flex flex-col text-gray-400 py-2 w-full relative">
               <label>Password</label>
-              <input
-                type="password"
-                name="password"
-                onChange={onRegisterChange}
-                className="bg-cyan-700 p-1 rounded focus:border-blue-500 focus:bg-cyan-800 focus:outline-none text-white"
-              />
+              <div className="relative">
+                <input
+                  type={`${obsecurepass ? "password" : "text"}`}
+                  name="password"
+                  onChange={onRegisterChange}
+                  className="bg-cyan-700 p-1 w-full rounded focus:border-blue-500 focus:bg-cyan-500 focus:outline-none text-white"
+                />
+                <button
+                  type="button"
+                  className="absolute right-2 top-[6px] text-white"
+                  onClick={() => setObsecurepass(!obsecurepass)}
+                >
+                  {obsecurepass ? (
+                    <FaRegEye size={20} />
+                  ) : (
+                    <FaRegEyeSlash size={20} />
+                  )}
+                </button>
+              </div>
             </div>
-
+            <div className="flex flex-col text-gray-400 py-2 w-full relative">
+              <label>Confirm Password</label>
+              <div className="relative">
+                <input
+                  type={`${obsecurepass ? "password" : "text"}`}
+                  name="confirmPassword"
+                  onChange={onRegisterChange}
+                  className="bg-cyan-700 p-1 w-full rounded focus:border-blue-500 focus:bg-cyan-500 focus:outline-none text-white"
+                />
+                <button
+                  type="button"
+                  className="absolute right-2 top-[6px] text-white"
+                  onClick={() => setObsecurepass(!obsecurepass)}
+                >
+                  {obsecurepass ? (
+                    <FaRegEye size={20} />
+                  ) : (
+                    <FaRegEyeSlash size={20} />
+                  )}
+                </button>
+              </div>
+              <p className="text-red-500 text-xs absolute bottom-[-8px] left-0">{registerCredentials.password!==registerCredentials.confirmPassword  && "Password didnt match to retyped password"}</p>
+            </div>
             <button
               type="submit"
+              disabled={registerdisabled}
               onClick={handleRegister}
-              className="text-white text-center font-bold w-full bg-gradient-to-r from-green-400 to-blue-500 hover:from-blue-500 hover:to-pink-500 rounded p-1 my-5"
+              className={`text-white bg-gradient-to-r shadow-2xl text-center font-bold w-full ${registerdisabled ?" from-slate-400 to-teal-950" :"bg-gradient-to-r from-green-400 to-blue-500 hover:from-blue-500 hover:to-pink-500 "}  rounded-2xl p-1 my-5 `}
             >
               Register
             </button>
@@ -188,38 +254,19 @@ function Login() {
               Already have an account?{" "}
               <button
                 onClick={() => setIsLogin(true)}
-                to="/login"
                 className=" hover:underline-offset-2 hover:text-white/75 underline cursor-pointer pl-1"
               >
                 Log In
               </button>
             </p>
-          </form>
+          </motion.form>
         )}
       </div>
 
       <Modal isVisible={showModal}>
         {loading ? (
-          <div className="p-2">
-            <div role="status">
-              <svg
-                aria-hidden="true"
-                class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-gray-600 dark:fill-gray-300"
-                viewBox="0 0 100 101"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                  fill="currentFill"
-                />
-              </svg>
-              <span class="sr-only">Loading...</span>
-            </div>
+          <div className="p-4 px-4">
+           <Spinner/>
           </div>
         ) : isLogin ? (
           <div className="max-w-[250] w-full  px-8 py-4 rounded">
@@ -241,7 +288,7 @@ function Login() {
             <div className="flex flex-col text-gray-900 py-2 font-bold">
               {error}
             </div>
-            <div className="flex justify-end text-red-800 font-extrabold mt-4">
+            <div className="flex justify-self-end text-red-800 font-extrabold mt-4">
               <button
                 onClick={() => {
                   setShowModal(false);
@@ -253,7 +300,7 @@ function Login() {
           </div>
         )}
       </Modal>
-    </div>
+    </>
   );
 }
 export default Login;

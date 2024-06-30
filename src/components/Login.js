@@ -4,11 +4,13 @@ import Modal from "./Modal";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import Spinner from "./Spinner";
 import { motion } from "framer-motion";
+import GradientButton from "./GradientButton";
 
 function Login() {
   let navigate = useNavigate();
   const [credentials, setcredentials] = useState({ email: "", password: "" });
   const [obsecurepass, setObsecurepass] = useState(true);
+  const [obsecureConfpass, setObsecureConfpass] = useState(true);
   const [registerCredentials, setRegisterCredentials] = useState({
     name: "",
     email: "",
@@ -50,6 +52,7 @@ function Login() {
     e.preventDefault();
     setLoading(true);
     setShowModal(true);
+    console.log(registerCredentials);
     const response = await fetch(
       `https://stickit-backend.vercel.app/api/auth/createuser`,
       {
@@ -61,6 +64,7 @@ function Login() {
           name: registerCredentials.name,
           email: registerCredentials.email,
           password: registerCredentials.password,
+          confirmPassword: registerCredentials.confirmPassword,
         }),
       }
     );
@@ -89,14 +93,24 @@ function Login() {
       [e.target.name]: e.target.value,
     });
   };
-  const logindisabled=credentials.email.length<3 || credentials.password.length<8 
-  const registerdisabled=registerCredentials.name.length<3 || registerCredentials.email.length===0 || registerCredentials.password.length<8 || registerCredentials.confirmPassword !== registerCredentials.password;
+  const logindisabled =
+    credentials.email.length < 3 || credentials.password.length < 8;
+  const registerdisabled =
+    registerCredentials.name.length < 3 ||
+    registerCredentials.email.length === 0 ||
+    registerCredentials.password.length < 8 ||
+    registerCredentials.confirmPassword !== registerCredentials.password;
 
   return (
     <>
-      <div  className="  bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 flex flex-col justify-center items-center transition-all ease-in h-screen">
+      <div className="  bg-gradient-to-br from-indigo-800 via-cyan-800 to-teal-800 flex flex-col justify-center items-center transition-all ease-in h-screen">
         {isLogin ? (
-          <motion.form initial={{scale:0.5}} animate={{scale:1}} transition={{type:'spring'}}  className="flex flex-col  justify-center w-[350px] sm:w-[400px]  mx-auto bg-cyan-900 p-5 m-3 border-2 rounded-xl border-sky-200 shadow-[0_0_2px_#fff,inset_0_0_2px_#fff,0_0_5px_#08f,0_0_15px_#08f,0_0_30px_#08f] ">
+          <motion.form
+            initial={{ scale: 0.5 }}
+            animate={{ scale: 1 }}
+            transition={{ type: "spring" }}
+            className="flex flex-col  justify-center w-[350px] sm:w-[400px]  mx-auto bg-cyan-900 p-5 m-3 border-2 rounded-xl border-sky-200 shadow-[0_0_2px_#fff,inset_0_0_2px_#fff,0_0_5px_#08f,0_0_15px_#08f,0_0_30px_#08f] "
+          >
             <img
               src={require("../assets/notelogo.png")}
               alt=""
@@ -105,38 +119,54 @@ function Login() {
             <legend className="text-2xl text-white text-center font-bold mb-6">
               Log In to your account
             </legend>
-            <div className="flex flex-col text-gray-400 py-2 w-full">
-              <label>Email</label>
+            <div class="relative z-0 w-full mb-5">
               <input
                 type="email"
                 name="email"
+                placeholder=" "
                 onChange={onChange}
-                className="bg-cyan-700 p-1 rounded focus:border-blue-500 focus:bg-cyan-500 focus:outline-none text-white"
+                class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 border-gray-200 text-white"
               />
+              <label
+                for="email"
+                class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
+              >
+                Enter email address
+              </label>
+              <span class="text-sm text-red-600 hidden" id="error">
+                Email address is required
+              </span>
             </div>
-            <div className="flex flex-col text-gray-400 py-2 w-full ">
-              <label>Password</label>
-              <div className="flex  relative">
-                <input
-                  type={`${obsecurepass ? "password" : "text"}`}
-                  name="password"
-                  security="none"
-                  onChange={onChange}
-                  className="bg-cyan-700 p-1 rounded w-full focus:border-blue-500 focus:bg-cyan-500 focus:outline-none  text-white"
-                />
-                <button
-                  type="button"
-                  className="absolute right-2 top-[6px] text-white"
-                  onClick={() => setObsecurepass(!obsecurepass)}
-                >
-                  {obsecurepass ? (
-                    <FaRegEye size={20} />
-                  ) : (
-                    <FaRegEyeSlash size={20} />
-                  )}
-                </button>
-              </div>
+            <div class="relative z-0 w-full mb-5">
+              <input
+                name="password"
+                placeholder=" "
+                type={`${obsecurepass ? "password" : "text"}`}
+                onChange={onChange}
+                class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 border-gray-200 text-white"
+              />
+              <label
+                for="password"
+                class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
+              >
+                Enter password
+              </label>
+              <button
+                type="button"
+                className="absolute right-2 top-4 text-white"
+                onClick={() => setObsecurepass(!obsecurepass)}
+              >
+                {obsecurepass ? (
+                  <FaRegEye size={20} />
+                ) : (
+                  <FaRegEyeSlash size={20} />
+                )}
+              </button>
+              <span class="text-sm text-red-600 hidden" id="error">
+                Password is required
+              </span>
             </div>
+
             <div className="self-end text-gray-400 py-2">
               <Link
                 to={"/fogetpassword"}
@@ -145,15 +175,8 @@ function Login() {
                 Forgot Password
               </Link>
             </div>
-            <button
-              onClick={handleLogIN}
-              disabled={logindisabled}
-              className={`text-white bg-gradient-to-r drop-shadow-2xl text-center font-bold w-full ${logindisabled ?" from-slate-400 to-teal-950" :"bg-gradient-to-r from-green-400 to-blue-500 hover:from-blue-500 hover:to-pink-500 "}  rounded-2xl p-1 my-5 `}
-              type="submit"
-            >
-              {" "}
-              Log In
-            </button>
+            <GradientButton name={"Login"} handlePress={handleLogIN}/>
+
             <p className="flex justify-center text-gray-400 py-2 ">
               Don't have an account?{" "}
               <button
@@ -170,7 +193,12 @@ function Login() {
             </p>
           </motion.form>
         ) : (
-          <motion.form initial={{scale:0.8}} animate={{scale:1}} transition={{type:'spring'}}  className="flex flex-col items-center justify-center w-[350px] sm:w-[450px]  mx-auto bg-cyan-900 p-5 m-3 border-2 rounded-xl border-sky-200 shadow-[0_0_2px_#fff,inset_0_0_2px_#fff,0_0_5px_#08f,0_0_15px_#08f,0_0_30px_#08f]  ">
+          <motion.form
+            initial={{ scale: 0.8 }}
+            animate={{ scale: 1 }}
+            transition={{ type: "spring" }}
+            className="flex flex-col items-center justify-center w-[350px] sm:w-[450px]  mx-auto bg-cyan-900 p-5 m-3 border-2 rounded-xl border-sky-200 shadow-[0_0_2px_#fff,inset_0_0_2px_#fff,0_0_5px_#08f,0_0_15px_#08f,0_0_30px_#08f]  "
+          >
             <img
               src={require("../assets/notelogo.png")}
               alt=""
@@ -179,77 +207,103 @@ function Login() {
             <legend className="text-2xl text-white text-center font-bold mb-6">
               Create a new account
             </legend>
-            <div className="flex flex-col text-gray-400 py-2 w-full">
-              <label>Name</label>
+            <div class="relative z-0 w-full mb-5">
               <input
                 type="text"
                 name="name"
+                placeholder=" "
                 onChange={onRegisterChange}
-                className="bg-cyan-700 p-1 rounded focus:border-blue-500 focus:bg-cyan-500 focus:outline-none text-white"
+                class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 border-gray-200 text-white"
               />
+              <label
+                for="name"
+                class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
+              >
+                Enter Name
+              </label>
+              <span class="text-sm text-red-600 hidden" id="error">
+                Name is required
+              </span>
             </div>
-            <div className="flex flex-col text-gray-400 py-2 w-full">
-              <label>Email</label>
+            <div class="relative z-0 w-full mb-5">
               <input
                 type="email"
                 name="email"
+                placeholder=" "
                 onChange={onRegisterChange}
-                className="bg-cyan-700 p-1 rounded focus:border-blue-500 focus:bg-cyan-500 focus:outline-none text-white"
+                class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 border-gray-200 text-white"
               />
+              <label
+                for="email"
+                class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
+              >
+                Enter email address
+              </label>
+              <span class="text-sm text-red-600 hidden" id="error">
+                Email address is required
+              </span>
             </div>
-            <div className="flex flex-col text-gray-400 py-2 w-full relative">
-              <label>Password</label>
-              <div className="relative">
-                <input
-                  type={`${obsecurepass ? "password" : "text"}`}
-                  name="password"
-                  onChange={onRegisterChange}
-                  className="bg-cyan-700 p-1 w-full rounded focus:border-blue-500 focus:bg-cyan-500 focus:outline-none text-white"
-                />
-                <button
-                  type="button"
-                  className="absolute right-2 top-[6px] text-white"
-                  onClick={() => setObsecurepass(!obsecurepass)}
-                >
-                  {obsecurepass ? (
-                    <FaRegEye size={20} />
-                  ) : (
-                    <FaRegEyeSlash size={20} />
-                  )}
-                </button>
-              </div>
+            <div class="relative z-0 w-full mb-5">
+              <input
+                name="password"
+                placeholder=" "
+                type={`${obsecurepass ? "password" : "text"}`}
+                onChange={onRegisterChange}
+                class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 border-gray-200 text-white"
+              />
+              <label
+                for="password"
+                class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
+              >
+                Enter password
+              </label>
+              <button
+                type="button"
+                className="absolute right-2 top-4 text-white"
+                onClick={() => setObsecurepass(!obsecurepass)}
+              >
+                {obsecurepass ? (
+                  <FaRegEye size={20} />
+                ) : (
+                  <FaRegEyeSlash size={20} />
+                )}
+              </button>
+              <span class="text-sm text-red-600 hidden" id="error">
+                Password is required
+              </span>
             </div>
-            <div className="flex flex-col text-gray-400 py-2 w-full relative">
-              <label>Confirm Password</label>
-              <div className="relative">
-                <input
-                  type={`${obsecurepass ? "password" : "text"}`}
-                  name="confirmPassword"
-                  onChange={onRegisterChange}
-                  className="bg-cyan-700 p-1 w-full rounded focus:border-blue-500 focus:bg-cyan-500 focus:outline-none text-white"
-                />
-                <button
-                  type="button"
-                  className="absolute right-2 top-[6px] text-white"
-                  onClick={() => setObsecurepass(!obsecurepass)}
-                >
-                  {obsecurepass ? (
-                    <FaRegEye size={20} />
-                  ) : (
-                    <FaRegEyeSlash size={20} />
-                  )}
-                </button>
-              </div>
-              <p className="text-red-500 text-xs absolute bottom-[-8px] left-0">{registerCredentials.password!==registerCredentials.confirmPassword  && "Password didnt match to retyped password"}</p>
+            <div class="relative z-0 w-full mb-5">
+              <input
+                name="confirmPassword"
+                placeholder=" "
+                type={`${obsecureConfpass ? "password" : "text"}`}
+                onChange={onRegisterChange}
+                class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 border-gray-200 text-white"
+              />
+              <label
+                for="password"
+                class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
+              >
+                Confirm Password
+              </label>
+              <button
+                type="button"
+                className="absolute right-2 top-4 text-white"
+                onClick={() => setObsecureConfpass(!obsecureConfpass)}
+              >
+                {obsecureConfpass ? (
+                  <FaRegEye size={20} />
+                ) : (
+                  <FaRegEyeSlash size={20} />
+                )}
+              </button>
+              <span class="text-xs text-red-600 font-semibold " id="error">
+                {registerCredentials.password !==
+                  registerCredentials.confirmPassword &&
+                  "Password didnt match to retyped password"}
+              </span>
             </div>
-            <button
-              type="submit"
-              disabled={registerdisabled}
-              onClick={handleRegister}
-              className={`text-white bg-gradient-to-r shadow-2xl text-center font-bold w-full ${registerdisabled ?" from-slate-400 to-teal-950" :"bg-gradient-to-r from-green-400 to-blue-500 hover:from-blue-500 hover:to-pink-500 "}  rounded-2xl p-1 my-5 `}
-            >
-              Register
-            </button>
+            <GradientButton name={"Register"} handlePress={handleRegister}/>
             <p className="flex justify-center text-gray-400 py-2 ">
               Already have an account?{" "}
               <button
@@ -263,10 +317,10 @@ function Login() {
         )}
       </div>
 
-      <Modal isVisible={showModal}>
+      <Modal style={{}} isVisible={showModal}>
         {loading ? (
           <div className="p-4 px-4">
-           <Spinner/>
+            <Spinner />
           </div>
         ) : isLogin ? (
           <div className="max-w-[250] w-full  px-8 py-4 rounded">

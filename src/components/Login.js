@@ -93,13 +93,13 @@ function Login() {
       [e.target.name]: e.target.value,
     });
   };
-  const logindisabled =
-    credentials.email.length < 3 || credentials.password.length < 8;
-  const registerdisabled =
-    registerCredentials.name.length < 3 ||
-    registerCredentials.email.length === 0 ||
-    registerCredentials.password.length < 8 ||
-    registerCredentials.confirmPassword !== registerCredentials.password;
+  // const logindisabled =
+  //   credentials.email.length < 3 || credentials.password.length < 8;
+  // const registerdisabled =
+  //   registerCredentials.name.length < 3 ||
+  //   registerCredentials.email.length === 0 ||
+  //   registerCredentials.password.length < 8 ||
+  //   registerCredentials.confirmPassword !== registerCredentials.password;
 
   return (
     <>
